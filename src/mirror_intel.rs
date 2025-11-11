@@ -61,11 +61,10 @@ impl TargetStorage<String> for MirrorIntel {
         let headers = response.headers().clone();
         drop(response);
 
-        if let Some(location) = headers.get("Location") {
-            if !location.to_str().unwrap().contains("jcloud") {
+        if let Some(location) = headers.get("Location")
+            && !location.to_str().unwrap().contains("jcloud") {
                 tokio::time::sleep(std::time::Duration::from_secs(1)).await;
             }
-        }
 
         if let Some(queue_length) = headers.get("X-Intel-Queue-Length") {
             let queue_length: u64 = queue_length.to_str().unwrap().parse().unwrap();

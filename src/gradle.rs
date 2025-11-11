@@ -51,13 +51,11 @@ impl SnapshotStorage<String> for Gradle {
                         .and_then(|version| version.as_str())
                         .unwrap_or(""),
                 );
-                if let Some(rc_for) = package.get("rcFor") {
-                    if let Some(rc_for) = rc_for.as_str() {
-                        if !rc_for.is_empty() {
+                if let Some(rc_for) = package.get("rcFor")
+                    && let Some(rc_for) = rc_for.as_str()
+                        && !rc_for.is_empty() {
                             return None;
                         }
-                    }
-                }
                 package.get("downloadUrl")
             })
             .filter_map(|url| url.as_str())

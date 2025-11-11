@@ -1,3 +1,6 @@
+#![deny(clippy::all)]
+#![allow(clippy::enum_variant_names)]
+
 mod common;
 mod crates_io;
 mod dart;
