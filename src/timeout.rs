@@ -1,7 +1,7 @@
 use crate::error::{Error, Result};
 use std::future::Future;
 use std::time::Duration;
-use tokio::time::{error::Elapsed, Timeout};
+use tokio::time::{Timeout, error::Elapsed};
 
 type StdResult<T, E> = std::result::Result<T, E>;
 

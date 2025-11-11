@@ -2,7 +2,7 @@ use crate::common::{Mission, SnapshotConfig};
 use crate::error::Result;
 use crate::traits::{SnapshotStorage, TargetStorage};
 use async_trait::async_trait;
-use reqwest::{redirect::Policy, Client, ClientBuilder};
+use reqwest::{Client, ClientBuilder, redirect::Policy};
 use slog::{info, warn};
 
 #[derive(Debug)]
@@ -62,9 +62,10 @@ impl TargetStorage<String> for MirrorIntel {
         drop(response);
 
         if let Some(location) = headers.get("Location")
-            && !location.to_str().unwrap().contains("jcloud") {
-                tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-            }
+            && !location.to_str().unwrap().contains("jcloud")
+        {
+            tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        }
 
         if let Some(queue_length) = headers.get("X-Intel-Queue-Length") {
             let queue_length: u64 = queue_length.to_str().unwrap().parse().unwrap();

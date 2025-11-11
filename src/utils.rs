@@ -1,5 +1,5 @@
 use indicatif::ProgressStyle;
-use slog::{o, Drain};
+use slog::{Drain, o};
 
 pub fn create_logger() -> slog::Logger {
     let decorator = slog_term::TermDecorator::new().build();
