@@ -89,6 +89,7 @@ where
         let logger = create_logger();
         let client = ClientBuilder::new()
             .user_agent(crate::utils::user_agent())
+            .read_timeout(Duration::from_secs(60))
             .connect_timeout(Duration::from_secs(10))
             .build()?;
         info!(logger, "using simple diff transfer"; "config" => format!("{:?}", self.config));
