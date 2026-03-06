@@ -14,7 +14,7 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    container: ubuntu:focal
+    container: debian:buster
     steps:
       - uses: actions/checkout@v5
         name: Checkout 🛎️
@@ -30,6 +30,7 @@ jobs:
       - name: Install musl toolchain
         run: |
           export DEBIAN_FRONTEND=noninteractive 
+          sed -i 's#http://deb.debian.org#http://archive.debian.org#g' /etc/apt/sources.list
           apt-get update
           apt-get install -y libssl-dev curl build-essential pkg-config
       - uses: dtolnay/rust-toolchain@stable
