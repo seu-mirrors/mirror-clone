@@ -20,13 +20,6 @@ jobs:
         name: Checkout 🛎️
         with:
           persist-credentials: false
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: Install musl toolchain
         run: |
           export DEBIAN_FRONTEND=noninteractive 
@@ -35,7 +28,6 @@ jobs:
           apt-get install -y libssl-dev curl build-essential pkg-config
       - uses: dtolnay/rust-toolchain@stable
         name: Setup Cargo Toolchain 🛎️
-      - uses: Swatinem/rust-cache@v2
       - name: Compile all targets 🚀
         run: cargo build --release --target x86_64-unknown-linux-gnu
       - name: create tar
